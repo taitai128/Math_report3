@@ -1,3 +1,12 @@
+document.getElementById('waveform').addEventListener('change', function() {
+    const customWaves = document.getElementById('customWaves');
+    if (this.value === 'custom') {
+        customWaves.style.display = 'block';
+    } else {
+        customWaves.style.display = 'none';
+    }
+});
+
 document.getElementById('generate').addEventListener('click', function() {
     const waveform = document.getElementById('waveform').value;
     const frequency = parseFloat(document.getElementById('frequency').value);
@@ -14,6 +23,18 @@ document.getElementById('generate').addEventListener('click', function() {
             y.push(Math.sign(Math.sin(2 * Math.PI * frequency * n * T)));
         } else if (waveform === 'sawtooth') {
             y.push(2 * (n * T * frequency - Math.floor(n * T * frequency + 0.5)));
+        } else if (waveform === 'custom') {
+            const frequency1 = parseFloat(document.getElementById('frequency1').value);
+            const amplitude1 = parseFloat(document.getElementById('amplitude1').value);
+            const frequency2 = parseFloat(document.getElementById('frequency2').value);
+            const amplitude2 = parseFloat(document.getElementById('amplitude2').value);
+            const frequency3 = parseFloat(document.getElementById('frequency3').value);
+            const amplitude3 = parseFloat(document.getElementById('amplitude3').value);
+            y.push(
+                amplitude1 * Math.sin(2 * Math.PI * frequency1 * n * T) +
+                amplitude2 * Math.sin(2 * Math.PI * frequency2 * n * T) +
+                amplitude3 * Math.sin(2 * Math.PI * frequency3 * n * T)
+            );
         }
     }
 
